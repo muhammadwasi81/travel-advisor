@@ -1,11 +1,20 @@
-import { CssBaseline, Grid } from '@mui/material';
-import React from 'react';
-import Header from './components/Header/Header.jsx';
-import List from './components/List/List.jsx';
-import Map from './components/Map/Map.jsx';
-import PlaceDetails from './components/PlaceDetails/PlaceDetails';
+import React, { useEffect, useState } from 'react'
+import { CssBaseline, Grid } from '@mui/material'
+import { getPlaceData } from './api/index'
+import Header from './components/Header/Header.jsx'
+import List from './components/List/List.jsx'
+import Map from './components/Map/Map.jsx'
+import PlaceDetails from './components/PlaceDetails/PlaceDetails'
 
 const App = () => {
+  const [places, setPlaces] = useState([])
+
+  useEffect(() => {
+    getPlaceData().then((data) => {
+      console.log('places data: ', data)
+      setPlaces(data)
+    })
+  }, [])
   return (
     <>
       <CssBaseline />
@@ -19,7 +28,7 @@ const App = () => {
         </Grid>
       </Grid>
     </>
-  );
-};
+  )
+}
 
-export default App;
+export default App
