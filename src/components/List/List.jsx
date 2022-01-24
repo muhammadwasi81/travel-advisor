@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import useStyles from './styles.js';
+import React, { useState } from 'react'
+import useStyles from './styles.js'
 import {
   FormControl,
   InputLabel,
@@ -7,24 +7,13 @@ import {
   Select,
   Typography,
   Grid,
-} from '@mui/material';
-import PlaceDetails from '../PlaceDetails/PlaceDetails';
-const List = () => {
-  const classes = useStyles();
-  const [type, setType] = useState('restaurants');
-  const [rating, setRating] = useState('');
+} from '@mui/material'
+import PlaceDetails from '../PlaceDetails/PlaceDetails'
 
-  const places = [
-    { name: 'Cool Place' },
-    { name: 'Best Beer' },
-    { name: 'Best Steak' },
-    { name: 'Cool Place' },
-    { name: 'Best Beer' },
-    { name: 'Best Steak' },
-    { name: 'Cool Place' },
-    { name: 'Best Beer' },
-    { name: 'Best Steak' },
-  ];
+const List = ({ places }) => {
+  const classes = useStyles()
+  const [type, setType] = useState('restaurants')
+  const [rating, setRating] = useState('')
 
   return (
     <div className={classes.container}>
@@ -60,7 +49,7 @@ const List = () => {
         ))}
       </Grid>
     </div>
-  );
-};
+  )
+}
 
-export default List;
+export default List
