@@ -1,11 +1,24 @@
-import React from 'react';
-import { Autocomplete } from '@react-google-maps/api';
-import { AppBar, Toolbar, Typography, InputBase, Box } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
-import useStyles from './styles.js';
+import React, { useState } from 'react'
+import { Autocomplete } from '@react-google-maps/api'
+import { AppBar, Toolbar, Typography, InputBase, Box } from '@mui/material'
+import SearchIcon from '@mui/icons-material/Search'
+import { useStyles } from './styles.js'
+import Search from '@mui/icons-material/Search'
 
-const Header = () => {
-  const classes = useStyles();
+const Header = ({ setCoordinates }) => {
+  const [autoComplete, setAutoComplete] = useState(null)
+  const classes = useStyles()
+
+  const onLoad = (autoC) => {
+    setAutoComplete(autoC)
+  }
+
+  const onPlaceChanged = () => {
+    const lat = autoComplete.getPlace().geometry.location.lat()
+    const lng = autoComplete.getPlace().geometry.location.lng()
+
+    setCoordinates({ lat, lng })
+  }
   return (
     <>
       <AppBar position="static">
@@ -23,25 +36,23 @@ const Header = () => {
             >
               Explore new places
             </Typography>
-            {/* <Autocomplete> */}
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
+            <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
+              <div className={classes.searchIconWrapper}>
+                <div className={classes.searchIcon}>
+                  <SearchIcon />
+                </div>
+                <InputBase
+                  className={classes.InputBase}
+                  placeholder="Search…"
+                  inputProps={{ 'aria-label': 'search' }}
+                />
               </div>
-              <InputBase
-                placeholder="Search..."
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-              />
-            </div>
-            {/* </Autocomplete> */}
+            </Autocomplete>
           </Box>
         </Toolbar>
       </AppBar>
     </>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

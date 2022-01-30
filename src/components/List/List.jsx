@@ -11,22 +11,30 @@ import {
 } from '@mui/material'
 import PlaceDetails from '../PlaceDetails/PlaceDetails'
 
-const List = ({ places, childClicked, isLoading }) => {
+const List = ({
+  places,
+  childClicked,
+  isLoading,
+  type,
+  setType,
+  rating,
+  setRating,
+}) => {
   const classes = useStyles()
-  const [type, setType] = useState('restaurants')
-  const [rating, setRating] = useState('')
+
   const [elRefs, setElRefs] = useState([])
 
   // TODO: new method of console.log
-  // console.log({childClicked})
+  // console.log({ childClicked })
 
   //TODO: _ in map means we don't use 1st parameter need the 2nd One
   useEffect(() => {
-    const refs = Array(places?.length)
-      .fill()
-      .map((_, i) => elRefs[i] || createRef())
-    console.log(refs)
-    setElRefs(refs)
+    console.log('refs', { childClicked })
+    setElRefs((refs) =>
+      Array(places?.length)
+        .fill()
+        .map((_, i) => refs[i] || createRef())
+    )
   }, [places])
 
   return (
